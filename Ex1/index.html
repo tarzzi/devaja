@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
+    </head>
+
+    <body style="text-align: center; font-family: 'Baloo Tammudu 2', cursive; letter-spacing: 0.5rem;">
+        <h1 id="bird"></h1>
+        <input type="text" id="input">
+
+
+        <script>
+            $(function() {
+                const birds = ['talitintti','punatulkku','sinitiainen'];
+                $('#bird').text(birds[0]);
+
+                $('#input').keypress( function(){
+                    let bird = birds[0];
+                    
+
+                })
+            });
+        </script>
+    </body>
+    
+</html>

@@ -1,16 +1,54 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
-        
+        <style>
+            .keno{
+                font-style: italic;
+            }
+            #bird{
+                
+            }
+            #bird-cage{           
+                text-transform: uppercase; 
+                padding: 2rem; 
+                border: 2px dashed black; 
+                margin: auto;
+                height: 8em;
+            }
+            #input{
+                text-align: center; 
+                font-family: 'Baloo Tammudu 2', cursive; 
+                letter-spacing: 0.5rem;
+                font-size: 2em;
+                width: 90%;
+                margin: auto;
+            }
+            #about{
+                position: fixed;
+
+            }
+            @media only screen and (max-width: 700px) {
+                #bird{
+                    padding: 2rem; 
+                }
+                #input{
+                letter-spacing: 0.5rem;
+                margin: 5rem 2rem; 
+                font-size: 2rem;
+                }
+            }
+        </style>
     </head>
 
-    <body id="input" style="text-align: center; font-family: 'Baloo Tammudu 2', cursive; letter-spacing: 0.5rem; margin: 10rem; font-size: 2rem;">
+    <body id="input">
         <p>Type-me</p>
-        <h1 id="bird" style="text-transform: uppercase; padding: 1.5rem; border: 2px dashed black; align-items: center; margin: auto;"></h1>
-
+        <div id="bird-cage">
+            <h1 id="bird"></h1>
+        </div>
 
         <script type="text/javascript">
             $(function() {
@@ -25,26 +63,31 @@
 
                 $('#input').keypress( function(event){                   
                     i = 0;
-                    console.log(event.keyCode);
-                            while(i < letterCount){
-                                console.log("Checking " + i);
-                                if(event.keyCode == bird.charCodeAt(i)){
-                                    console.log("found at "+i);
-                                    bird = bird.replace(bird.charAt(i),'');
-                                    $('#bird').text(bird);
-                                }
-                                else if(bird.length == 0){
-                                    x += 1;
-                                    bird = birds[x];       
-                                    letterCount = bird.length;
-                                    $('#bird').text(bird);
-                                    break;
-                                    }
-                                else{ 
-                                    i += 1;
-                                    $('#bird').text(bird);
-                                }
+                        while(i < letterCount){
+                            console.log("Checking " + i);
+                            if(event.keyCode == bird.charCodeAt(i)){
+                                console.log("found at "+i);
+                                bird = bird.replace(bird.charAt(i),'');
+                                $('#bird').text(bird);
                             }
+                            else if(bird.length == 0){
+                                x += 1;
+                                bird = birds[x];       
+                                letterCount = bird.length;
+                                $('#bird').text(bird);
+                                break;
+                                }
+                            else{ 
+                                i += 1;
+                                $('#bird').text(bird);
+                            }
+                        }
+                        if(x == 9){
+                            $('#bird')
+                                .text("Nice typing")
+                                .addClass('keno');
+                            
+                        }
                         
                     })
             });

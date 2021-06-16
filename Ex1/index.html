@@ -5,21 +5,46 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
     </head>
 
-    <body style="text-align: center; font-family: 'Baloo Tammudu 2', cursive; letter-spacing: 0.5rem;">
+    <body id="input" style="text-align: center; font-family: 'Baloo Tammudu 2', cursive; letter-spacing: 0.5rem; margin: 10rem; font-size: 2rem;">
         <h1 id="bird"></h1>
-        <input type="text" id="input">
 
 
-        <script>
+        <script type="text/javascript">
             $(function() {
                 const birds = ['talitintti','punatulkku','sinitiainen'];
+                let counter = 0;
+
+                // init birb
                 $('#bird').text(birds[0]);
-
-                $('#input').keypress( function(){
-                    let bird = birds[0];
+                let bird = birds[0];                
+                let letterCount = bird.length;
+                // letterCount -= 1;
+                let firstOrLast = true;
+                let maxCount = letterCount;
+            
+                    $('#input').keypress( function(event){
+                        //debug
+                        console.log(event.keyCode + " Event " + bird.charCodeAt(0) + " first == last " + bird.charCodeAt(letterCount -1) + " fiol " + firstOrLast);
+                        console.log("letter count = "+ letterCount);
+                        
+                        //first letter
+                        if(event.keyCode == bird.charCodeAt(0) && firstOrLast){
+                            bird = bird.substring(1, letterCount);                       
+                            $('#bird').text(bird);                      
+                            letterCount = letterCount - 1;
+                            firstOrLast = false;
+                            counter += 1;
+                        };
                     
-
-                })
+                        //last letter
+                        if(event.keyCode == bird.charCodeAt(letterCount - 1) && !firstOrLast){
+                            bird = bird.substring(0, letterCount - 1);                       
+                            $('#bird').text(bird);                  
+                            letterCount = letterCount - 1;
+                            firstOrLast = true;
+                            counter += 1;
+                        };
+                    })                
             });
         </script>
     </body>

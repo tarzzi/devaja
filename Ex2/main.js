@@ -7,6 +7,7 @@ else{
 
 var div = "";
 $("grid").html = div;
+var category = "ALL";
 
 // Init date
 var date = new Date();
@@ -20,6 +21,7 @@ else{
 	var questions = [];
 }
 
+$('#filter').change(function(){getQuestions();});
 
 function storageAvailable(type) {
   var storage;
@@ -55,7 +57,6 @@ function saveQuestion() {
   let dataArr = [];
   let dateStr = day + "." + month + "." + year;
   dateStr = "<h2>Date: " + dateStr + "</h2>";
-  category = "<h2>Category: " + category + "</h2>";
   question = "<h2>Question:</h2>" + question;
   dataArr.push(dateStr, category, question);
   questions.push(dataArr);
@@ -67,17 +68,20 @@ function saveQuestion() {
   getQuestions();
 }
 // Get from localstorage & append to grid
-function getQuestions(let filter) {
+function getQuestions() {
   questions = JSON.parse(qStorage.questions);
   let grid = $("#grid");
   grid.empty();
 	let index = questions.length;
-  for (let x = index; x > 0; x--) {
-    let data = questions[x-1];
-    let dd = "<div id='dtcat'>" + data[0] + data[1] + "</div>";
-    let dq = "<div id='que'>" + data[2] + "</div>";
-    let card = $('<div class="card subgrid"></div>').html(dd + dq);
-    grid.append(card);
+	
+  for (let x = index; x > 0; x--) {  
+		let data = questions[x-1];
+    if(checkFilter(data[1])){
+			let dd = "<div class='dtcat'>" + data[0] + "<h2>Category: " + data[1] + "</h2></div>";
+			let dq = "<div class='que'>" + data[2] + "</div>";
+			let card = $('<div class="card subgrid"></div>').html(dd + dq);
+			grid.append(card);
+    }
   }
 }
 
@@ -93,8 +97,10 @@ function clearData(){
 	let grid = $("#grid");
   grid.empty();
   }
-function filterData(){
+ 
+function checkFilter(category){
 	let filter = $("#filter").val();
-	
-	
+	if(filter == "ALL"){return true;}
+	else if(filter == category){return true;}
+	else{return false;}	
 	}

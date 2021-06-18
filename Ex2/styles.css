@@ -25,7 +25,7 @@ b{
   font-weight:bold;
 }
 .card{
-  background-color:#E1F6FF;
+  background-color:#F7FDFF;
   font-size: 1em;
   box-sizing: content-box;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -40,11 +40,12 @@ b{
   }
 .open-button {
   background-color: #00B2FF;
-  box-shadow: 5px 5px 5px gray;
+  box-shadow: 3px 3px 5px gray;
   color: white;
   padding: 16px 20px;
   border: 1px solid black;
   margin-bottom: 2em;
+  margin-left: 1em;
   cursor: pointer;
   opacity: 0.8;
   width: 10em;
@@ -104,11 +105,19 @@ b{
   align-content: center;
   grid-gap: 1em;
 }
-#dtcat{
+.dtcat{
   grid-column: 1 ;
   grid-row: 1;
 }
-#que{
+.que{
   grid-column: 2;
   grid-row: 1 / span 2;
 }
+#filter{
+  width: 15%;
+  display: inline-block;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: 1px solid black;
+  background: #f1f1f1;
+  }

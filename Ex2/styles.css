@@ -1,0 +1,91 @@
+body {
+  font-family: "Source Code Pro", monospace;
+  text-align: center;
+  margin:auto;
+}
+* {
+  box-sizing: border-box;
+}
+h1 {
+  font-size: 2em;
+}
+textarea {
+  resize: none;
+}
+b{
+  font-weight:bold;
+}
+.card{
+  background-color:#E1F6FF;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 100%;
+  padding: 2em;
+  border: 0.2em solid #00B2FF;
+  border-radius: 0 3em 2em 3em;
+  display: block;
+  }
+.open-button {
+  background-color: #00B2FF;
+  box-shadow: 5px 5px 5px gray;
+  color: white;
+  padding: 16px 20px;
+  border: 1px solid black;
+  margin-bottom: 2em;
+  cursor: pointer;
+  opacity: 0.8;
+  width: 10em;
+}
+.form-popup {
+  display: none;
+  position: fixed;
+  top: 5%;
+  left: 35%;
+  border: 3px solid #B6B6B6;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 9;
+}
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+.form-container textarea,
+.form-container select {
+  width: 100%;
+  display:block;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+.form-container textarea:focus,
+.form-container select:focus {
+  background-color: #ddd;
+  outline: none;
+}
+.form-container .btn {
+  background-color: #04aa6d;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+.form-container .cancel {
+  background-color: #f75555;
+}
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+#grid{
+  width:80%;
+  display:grid;
+  grid-auto-flow: row;
+  justify-content: center;
+  align-content: center;
+  grid-gap: 1em;
+}

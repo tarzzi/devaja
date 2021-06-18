@@ -12,18 +12,21 @@
   </head>
   <body>
     <h1>Question for The Guru</h1>
-    <button class="open-button" onclick="openForm()"><b>ADD</b></button>
-    <button class="open-button" onclick="clearData()"><b>ERASE</b></button>
-    <select id="filter" name="filter" onchange="filterData()">
-      <option value="ALL">ALL</option>
-      <option value="HTML">HTML</option>
-      <option value="CSS">CSS</option>
-      <option value="JAVASCRIPT">JAVASCRIPT</option>
-     </select>
+    <div>    
+      <label for="filter">View category:
+      <select id="filter" name="filter">
+        <option value="ALL">ALL</option>
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="JAVASCRIPT">JAVASCRIPT</option>
+       </select>
+       </label>
+      <button class="open-button" onclick="openForm()" style="display:inline-block"><b>ADD</b></button>
+    </div>
     <div id="grid"></div>
     <div class="form-popup" id="myForm">
       <form class="form-container">
-        <h1>What do you seek?</h1>
+        <h1>Ask away</h1>
 
         <label for="question"
           ><b>Question</b>

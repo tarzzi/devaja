@@ -1,13 +1,22 @@
 body {
-  font-family: "Source Code Pro", monospace;
+  font-family: 'Noto Sans TC', sans-serif;
   text-align: center;
-  margin:auto;
+  width:80%;
+  margin:auto auto 10rem auto;
 }
 * {
   box-sizing: border-box;
 }
+p {
+  margin:0;
+}
 h1 {
   font-size: 2em;
+}
+h2{
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
 }
 textarea {
   resize: none;
@@ -17,12 +26,17 @@ b{
 }
 .card{
   background-color:#E1F6FF;
+  font-size: 1em;
+  box-sizing: content-box;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 100%;
+  margin: 0;
   padding: 2em;
   border: 0.2em solid #00B2FF;
-  border-radius: 0 3em 2em 3em;
-  display: block;
+  border-radius: 0 5em 5em 5em;
+  }
+  .subgrid{
+  display:grid;
+  grid-gap: 1em;
   }
 .open-button {
   background-color: #00B2FF;
@@ -82,10 +96,19 @@ b{
 }
 
 #grid{
-  width:80%;
+  width:100%;
+  margin:auto;
   display:grid;
+  grid-template-columns:auto;
   grid-auto-flow: row;
-  justify-content: center;
   align-content: center;
   grid-gap: 1em;
+}
+#dtcat{
+  grid-column: 1 ;
+  grid-row: 1;
+}
+#que{
+  grid-column: 2;
+  grid-row: 1 / span 2;
 }

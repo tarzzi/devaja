@@ -2,11 +2,8 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <link href="styles.css" rel="stylesheet" />    
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -16,6 +13,13 @@
   <body>
     <h1>Question for The Guru</h1>
     <button class="open-button" onclick="openForm()"><b>ADD</b></button>
+    <button class="open-button" onclick="clearData()"><b>ERASE</b></button>
+    <select id="filter" name="filter" onchange="filterData()">
+      <option value="ALL">ALL</option>
+      <option value="HTML">HTML</option>
+      <option value="CSS">CSS</option>
+      <option value="JAVASCRIPT">JAVASCRIPT</option>
+     </select>
     <div id="grid"></div>
     <div class="form-popup" id="myForm">
       <form class="form-container">
@@ -26,7 +30,7 @@
           <textarea
             rows="10"
             cols="20"
-            maxlength="50"
+            maxlength="350"
             placeholder="Ask a question..."
             name="question"
             id="question"

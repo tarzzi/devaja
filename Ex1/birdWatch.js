@@ -11,8 +11,7 @@ $(function () {
     "kottarainen",
     "tulipäähippiäinen",
   ];
-  // Init counters
-  let counter = 0;
+  // Init counter
   let x = 0;
   // Init first birb
   $("#bird").text(birds[x]);

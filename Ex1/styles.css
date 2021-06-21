@@ -1,14 +1,16 @@
 .keno {
   font-style: italic;
 }
-#bird {
+br{
+  margin-bottom: 0;
+  line-height: 20px;
 }
 #bird-cage {
   text-transform: uppercase;
   padding: 2rem;
   border: 2px dashed black;
   margin: auto;
-  height: 8em;
+  width: 60%;
 }
 #input {
   text-align: center;
@@ -33,5 +35,12 @@
     letter-spacing: 0.5rem;
     margin: 5rem 2rem;
     font-size: 2rem;
+  }
+  #bird-cage {
+    text-transform: uppercase;
+    padding: 2rem;
+    border: 2px dashed black;
+    margin: auto;
+    width: 60%;
   }
 }

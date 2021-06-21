@@ -35,8 +35,11 @@ b{
   border-radius: 0 5em 5em 5em;
   }
   .subgrid{
-  display:grid;
-  grid-gap: 1em;
+    display: flex;
+    padding: 2rem 4rem;
+    grid-gap: 1em;
+    justify-content: flex-start;
+    flex-wrap: wrap;
   }
 .open-button {
   background-color: #00B2FF;
@@ -53,14 +56,17 @@ b{
 .form-popup {
   display: none;
   position: fixed;
-  top: 5%;
-  left: 35%;
+  max-width: 500px;
+  top: 8%;
+  left: 0;
+  right: 0;
+  margin: auto;
   border: 3px solid #B6B6B6;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   z-index: 9;
 }
 .form-container {
-  max-width: 300px;
+  max-width: 500px;
   padding: 10px;
   background-color: white;
 }
@@ -97,7 +103,7 @@ b{
 }
 
 #grid{
-  width:100%;
+  width:80%;
   margin:auto;
   display:grid;
   grid-template-columns:auto;
@@ -105,13 +111,17 @@ b{
   align-content: center;
   grid-gap: 1em;
 }
+@media only screen and (max-width:700px) {
+  #grid{
+    width:100%;
+  }
+  
+}
 .dtcat{
-  grid-column: 1 ;
-  grid-row: 1;
+  text-align: left;
 }
 .que{
-  grid-column: 2;
-  grid-row: 1 / span 2;
+  text-align: left;
 }
 #filter{
   width: 15%;

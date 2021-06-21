@@ -4,7 +4,6 @@ if (!storageAvailable("localStorage")) {
 else{
 		var qStorage = window.localStorage;
 	}
-
 var div = "";
 $("grid").html = div;
 var category = "ALL";
@@ -12,7 +11,7 @@ var category = "ALL";
 // Init date
 var date = new Date();
 [day, month, year] = [date.getDate(), date.getMonth(), date.getFullYear()];
-
+// Init question display or array
 if (qStorage.getItem("questions")) {
   var questions = [];
   getQuestions();
@@ -20,7 +19,7 @@ if (qStorage.getItem("questions")) {
 else{
 	var questions = [];
 }
-
+// Filter according to selected
 $('#filter').change(function(){getQuestions();});
 
 function storageAvailable(type) {
@@ -57,7 +56,6 @@ function saveQuestion() {
   let dataArr = [];
   let dateStr = day + "." + month + "." + year;
   dateStr = "<h2>Date: " + dateStr + "</h2>";
-  question = "<h2>Question:</h2>" + question;
   dataArr.push(dateStr, category, question);
   questions.push(dataArr);
   qStorage.questions = JSON.stringify(questions);
@@ -73,12 +71,12 @@ function getQuestions() {
   let grid = $("#grid");
   grid.empty();
 	let index = questions.length;
-	
   for (let x = index; x > 0; x--) {  
 		let data = questions[x-1];
     if(checkFilter(data[1])){
+      let q  = escapeString(data[2]);
 			let dd = "<div class='dtcat'>" + data[0] + "<h2>Category: " + data[1] + "</h2></div>";
-			let dq = "<div class='que'>" + data[2] + "</div>";
+			let dq = "<div class='que'><b>Question</b>: " + q + "</div>";
 			let card = $('<div class="card subgrid"></div>').html(dd + dq);
 			grid.append(card);
     }
@@ -104,3 +102,33 @@ function checkFilter(category){
 	else if(filter == category){return true;}
 	else{return false;}	
 	}
+
+  // Simple string escape
+  function escapeString(s) {
+    let out = "";
+    let p2 = 0;
+    for (let p = 0; p < s.length; p++) {
+       let r;
+       switch (s.charCodeAt(p)) {
+          case 34: r = "&quot;"; break;  // "
+          case 38: r = "&amp;" ; break;  // &
+          case 39: r = "&#39;" ; break;  // '
+          case 60: r = '&lt;'  ; break;  // <
+          case 62: r = '&gt;'  ; break;  // >
+          default: continue;
+       }
+       if (p2 < p) {
+          out += s.substring(p2, p);
+       }
+       out += r;
+       p2 = p + 1;
+    }
+    if (p2 == 0) {
+       return s;
+    }
+    if (p2 < s.length) {
+       out += s.substring(p2);
+    }
+    return out;
+ }
+ 

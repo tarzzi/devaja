@@ -1,14 +1,43 @@
 <!DOCTYPE html>
 <html>
-
+<!--Create an emoji generator for De Vaja
+● Draw an 8 x 8 virtual led screen with HTML5 Canvas API
+● Leds can be set on and off by clicking on them
+● If user presses SAVE button they are asked to give a name for the emoji
+● Saved emojis are stored in an online database
+● All saved emojis are shown below the virtual led screen in a grid layout-->
 <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Roboto+Mono&display=swap" rel="stylesheet">
 <style>
     body{
         background-color: black;
         color: white;
+        font-family: 'Major Mono Display', monospace;
+    }
+    button{
+        width: 8rem;
+        color: rgb(179, 179, 179);
+        padding: 1rem;
+        margin: 1rem;
+        border-radius: 1rem;
+        border: 1px solid white;
+        box-shadow: 2px 2px white;
+        background-color: black;       
+        font-size: 1rem;
+        font-family: 'Roboto Mono', monospace;
+        transition: 200ms;
+    }
+    button:hover{
+        color: white;
+
+    }
+    button:active{
+        box-shadow: none;
+        transform: translate(2px, 2px);
+
     }
     #container{
-        width: 80%;
         margin: auto;
         text-align: center;
     }
@@ -21,24 +50,41 @@
         height: 816px;
         border: 1px solid black;
     }
+    #title{
+        position: fixed;
+        left: -10%;
+        top: 50%;
+        transform:rotate(270deg);
+    }
+    
+    @media only screen and (max-width:1100px){
+        #title{
+        position:inherit;
+        left: auto;
+        top: auto;
+        transform:rotate(0deg);
+    }
+    }
     canvas{
         width: 100px;
         height: 100px;
-        border: 1px solid rgba(165, 165, 165, 0.2);
+        border: 1px solid rgba(165, 165, 165, 0.2);        
     }
 
 </style>
 
-<script
-src="https://code.jquery.com/jquery-3.6.0.min.js"
-type="text/javascript"
-></script>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    type="text/javascript"
+    ></script>
 </head>
 <body>
     <div id="container">
-        <h1>Draw me</h1><button id="reset">Reset</button>
-        <div id="grid">
-        </div>
+        <h1 id="title">Draw me - led board</h1>
+        <button id="reset">Reset</button>
+        <button id="reset">Save</button>
+        <div id="grid"></div>
+        <div id="emojis">Emojis created</div>
     </div>
     <script>
         // Initialize
@@ -66,7 +112,7 @@ type="text/javascript"
         })
 
         $('#reset').click(function() {toBlack();})
-
+        
         function toBlack(){
             for(let x = 1; x <= 64; x++){
                 let c = document.getElementById(x.toString());
@@ -77,7 +123,7 @@ type="text/javascript"
                 ctx.fill();
             }
         }
-        
+
     </script>
 </body>
 </html>

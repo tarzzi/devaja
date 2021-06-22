@@ -38,6 +38,15 @@ button:active {
 	height: 816px;
 	border: 1px solid black;
 }
+
+#emojis {
+	margin: auto;
+	display: grid;
+    grid-auto-flow: column;
+    width: 100%;
+	border: 1px solid black;
+}
+
 #title {
 	position: fixed;
 	left: -10%;

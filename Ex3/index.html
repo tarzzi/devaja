@@ -9,69 +9,7 @@
 <head>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Roboto+Mono&display=swap" rel="stylesheet">
-<style>
-    body{
-        background-color: black;
-        color: white;
-        font-family: 'Major Mono Display', monospace;
-    }
-    button{
-        width: 8rem;
-        color: rgb(179, 179, 179);
-        padding: 1rem;
-        margin: 1rem;
-        border-radius: 1rem;
-        border: 1px solid white;
-        box-shadow: 2px 2px white;
-        background-color: black;       
-        font-size: 1rem;
-        font-family: 'Roboto Mono', monospace;
-        transition: 200ms;
-    }
-    button:hover{
-        color: white;
-
-    }
-    button:active{
-        box-shadow: none;
-        transform: translate(2px, 2px);
-
-    }
-    #container{
-        margin: auto;
-        text-align: center;
-    }
-    #grid{
-        margin: auto;
-        display: grid;
-        grid-template-columns: auto auto auto auto auto auto auto auto ;
-        grid-template-rows: auto auto auto auto auto auto auto ;
-        width: 816px;
-        height: 816px;
-        border: 1px solid black;
-    }
-    #title{
-        position: fixed;
-        left: -10%;
-        top: 50%;
-        transform:rotate(270deg);
-    }
-    
-    @media only screen and (max-width:1100px){
-        #title{
-        position:inherit;
-        left: auto;
-        top: auto;
-        transform:rotate(0deg);
-    }
-    }
-    canvas{
-        width: 100px;
-        height: 100px;
-        border: 1px solid rgba(165, 165, 165, 0.2);        
-    }
-
-</style>
+<link rel="stylesheet" href="styles.css"></style>
 
     <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -82,7 +20,18 @@
     <div id="container">
         <h1 id="title">Draw me - led board</h1>
         <button id="reset">Reset</button>
-        <button id="save">Save</button>
+        <button id="save" onclick="openForm()">Save</button>
+        <div class="form-popup" id="nameForm">
+            <form class="form-container">  
+              <label for="name">Name your emoji<br />
+                <input type="text" id="name" name="name"> 
+                </label>
+              <button type="button" class="btn" onclick="saveEmoji()">SAVE</button>
+              <button type="button" class="btn cancel" onclick="closeForm()">
+                CANCEL
+              </button>
+            </form>
+          </div>
         <div id="grid"></div>
         <div id="emojis">Emojis created</div>
     </div>
@@ -100,10 +49,18 @@
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    var db = firebase.database();
+    var database = firebase.database();
 
     </script>
     <script>
+        function openForm() {
+        document.getElementById("nameForm").style.display = "block";
+        }
+
+        function closeForm() {
+        document.getElementById("nameForm").style.display = "none";
+        }
+
         // Initialize
         for(let x = 1; x <= 64; x++){
             let element = $('<canvas id='+x+'></canvas>');
@@ -141,7 +98,7 @@
             }
         }
 
-        function saveEmoji(){
+        function saveEmoji(e){
             let emoji = [];
             let value = 1;
             for(let x = 1; x <= 64; x++){
@@ -157,19 +114,54 @@
                 }
                 emoji.push(value);
             }
-            console.log(emoji);
-            return emoji;
+            let name = $('#name').val();
+            database.ref('emojis/'+name).set({
+                data:emoji,
+            })
         }
-
+/*
         $('#save').click(function(){
             let emoji = saveEmoji();
-            let data = emoji.toJSON();
-            firebase.database().ref('emojis/' + userId).set({
-                emojis: emoji
-            });
-        }); 
+            database.ref('emojis/').set({
+                id:emoji,
+            })
+            readDB();
+        });
+*/
+        var emojiRef = firebase.database().ref('emojis/');
+        emojiRef.on('value', (snapshot) => {
+        var data = snapshot.val();
+        displayData(data);
+        });
 
-        })
+
+        // #TODO create maby an image from entry? grid too much trouble
+        function displayData(data){      
+            for (let [key,value] of Object.entries(data)){
+                console.log(key,value);
+                
+                let item = $('<canvas class="minicanvas"></canvas>');
+                for(let [key2,value2] of Object.entries(value)){
+                //Create minigrid w/ 64 canvases
+                    for(let x = 1; x< 64; x++){
+                        let ctx = canvas.getContext("2d");
+                        colorData = ctx.getImageData(0,0,300,200);
+                        let r = colorData.data[0];  
+                        ctx.beginPath();
+                        ctx.rect(0, 0, canvas.width, canvas.height);
+                        if(r == 0){              
+                            ctx.fillStyle = "white";
+                        }
+                        else{
+                            ctx.fillStyle = "black";
+                        }            
+                        ctx.fill();
+                    }
+
+                }
+                $('#emojis').append(item);
+            }
+        }
 
     </script>
 </body>

@@ -82,10 +82,27 @@
     <div id="container">
         <h1 id="title">Draw me - led board</h1>
         <button id="reset">Reset</button>
-        <button id="reset">Save</button>
+        <button id="save">Save</button>
         <div id="grid"></div>
         <div id="emojis">Emojis created</div>
     </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBQUVUovd6qFA-edeYY9gTSANjrI_M9EPA",
+        authDomain: "led-screen-5d0d8.firebaseapp.com",
+        projectId: "led-screen-5d0d8",
+        databaseURL: "https://led-screen-5d0d8-default-rtdb.europe-west1.firebasedatabase.app/",
+        storageBucket: "led-screen-5d0d8.appspot.com"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.database();
+
+    </script>
     <script>
         // Initialize
         for(let x = 1; x <= 64; x++){
@@ -123,6 +140,36 @@
                 ctx.fill();
             }
         }
+
+        function saveEmoji(){
+            let emoji = [];
+            let value = 1;
+            for(let x = 1; x <= 64; x++){
+                let canvas = document.getElementById(x.toString());
+                let ctx = canvas.getContext("2d");
+                colorData = ctx.getImageData(0,0,300,200);
+                let r = colorData.data[0];  
+                if(r == 0){              
+                    value = 1;
+                }
+                else{
+                    value = 0;
+                }
+                emoji.push(value);
+            }
+            console.log(emoji);
+            return emoji;
+        }
+
+        $('#save').click(function(){
+            let emoji = saveEmoji();
+            let data = emoji.toJSON();
+            firebase.database().ref('emojis/' + userId).set({
+                emojis: emoji
+            });
+        }); 
+
+        })
 
     </script>
 </body>

@@ -6,163 +6,58 @@
 ● If user presses SAVE button they are asked to give a name for the emoji
 ● Saved emojis are stored in an online database
 ● All saved emojis are shown below the virtual led screen in a grid layout-->
-<head>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Roboto+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"></style>
-
-    <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    type="text/javascript"
-    ></script>
-</head>
-<body>
-    <div id="container">
-        <h1 id="title">Draw me - led board</h1>
-        <button id="reset">Reset</button>
-        <button id="save" onclick="openForm()">Save</button>
-        <div class="form-popup" id="nameForm">
-            <form class="form-container">  
-              <label for="name">Name your emoji<br />
-                <input type="text" id="name" name="name"> 
-                </label>
-              <button type="button" class="btn" onclick="saveEmoji()">SAVE</button>
-              <button type="button" class="btn cancel" onclick="closeForm()">
-                CANCEL
-              </button>
-            </form>
-          </div>
-        <div id="grid"></div>
-        <div id="emojis">Emojis created</div>
-    </div>
-    
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-    <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-        apiKey: "AIzaSyBQUVUovd6qFA-edeYY9gTSANjrI_M9EPA",
-        authDomain: "led-screen-5d0d8.firebaseapp.com",
-        projectId: "led-screen-5d0d8",
-        databaseURL: "https://led-screen-5d0d8-default-rtdb.europe-west1.firebasedatabase.app/",
-        storageBucket: "led-screen-5d0d8.appspot.com"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    var database = firebase.database();
-
-    </script>
-    <script>
-        function openForm() {
-        document.getElementById("nameForm").style.display = "block";
-        }
-
-        function closeForm() {
-        document.getElementById("nameForm").style.display = "none";
-        }
-
-        // Initialize
-        for(let x = 1; x <= 64; x++){
-            let element = $('<canvas id='+x+'></canvas>');
-            $('#grid').append(element);
-        }
-        toBlack();
-
-        // Handle led clicks
-        $('canvas').click(function(ev){
-            canvas = ev.target;
-            let ctx = canvas.getContext("2d");
-            colorData = ctx.getImageData(0,0,300,200);
-            let r = colorData.data[0];  
-            ctx.beginPath();
-            ctx.rect(0, 0, canvas.width, canvas.height);
-            if(r == 0){              
-                ctx.fillStyle = "white";
-            }
-            else{
-                ctx.fillStyle = "black";
-            }            
-            ctx.fill();
-        })
-
-        $('#reset').click(function() {toBlack();})
-        
-        function toBlack(){
-            for(let x = 1; x <= 64; x++){
-                let c = document.getElementById(x.toString());
-                let ctx = c.getContext("2d");
-                ctx.beginPath();
-                ctx.rect(0, 0, 300, 200);
-                ctx.fillStyle = "black";
-                ctx.fill();
-            }
-        }
-
-        function saveEmoji(e){
-            let emoji = [];
-            let value = 1;
-            for(let x = 1; x <= 64; x++){
-                let canvas = document.getElementById(x.toString());
-                let ctx = canvas.getContext("2d");
-                colorData = ctx.getImageData(0,0,300,200);
-                let r = colorData.data[0];  
-                if(r == 0){              
-                    value = 1;
-                }
-                else{
-                    value = 0;
-                }
-                emoji.push(value);
-            }
-            let name = $('#name').val();
-            database.ref('emojis/'+name).set({
-                data:emoji,
-            })
-        }
-/*
-        $('#save').click(function(){
-            let emoji = saveEmoji();
-            database.ref('emojis/').set({
-                id:emoji,
-            })
-            readDB();
-        });
-*/
-        var emojiRef = firebase.database().ref('emojis/');
-        emojiRef.on('value', (snapshot) => {
-        var data = snapshot.val();
-        displayData(data);
-        });
-
-
-        // #TODO create maby an image from entry? grid too much trouble
-        function displayData(data){      
-            for (let [key,value] of Object.entries(data)){
-                console.log(key,value);
-                
-                let item = $('<canvas class="minicanvas"></canvas>');
-                for(let [key2,value2] of Object.entries(value)){
-                //Create minigrid w/ 64 canvases
-                    for(let x = 1; x< 64; x++){
-                        let ctx = canvas.getContext("2d");
-                        colorData = ctx.getImageData(0,0,300,200);
-                        let r = colorData.data[0];  
-                        ctx.beginPath();
-                        ctx.rect(0, 0, canvas.width, canvas.height);
-                        if(r == 0){              
-                            ctx.fillStyle = "white";
-                        }
-                        else{
-                            ctx.fillStyle = "black";
-                        }            
-                        ctx.fill();
-                    }
-
-                }
-                $('#emojis').append(item);
-            }
-        }
-
-    </script>
-</body>
+	<head>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Roboto+Mono&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+		<script
+			src="https://code.jquery.com/jquery-3.6.0.min.js"
+			type="text/javascript"
+		></script>
+	</head>
+	<body>
+		<div id="container">
+			<h1 id="title">Draw me - led board</h1>
+			<button id="reset">Reset</button>
+			<button id="save" onclick="openForm()">Save</button>
+			<div class="form-popup" id="nameForm">
+				<form class="form-container">
+					<label for="name"
+						>Name your emoji<br />
+						<input type="text" id="name" name="name" maxlength="12" />
+					</label>
+					<button type="button" class="btn" onclick="saveEmoji()">SAVE</button>
+					<button type="button" class="btn cancel" onclick="closeForm()">
+						CANCEL
+					</button>
+				</form>
+			</div>
+			<div id="saved">
+				<h2>Emoji saved!</h2>
+				<button onclick="closeSaved()">Ok!</button>
+			</div>
+			<div id="grid"></div>
+      <div id="emojicontainer">
+			<h2>Emojis created</h2>
+			<div id="emojis"></div></div>
+		</div>
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+		<script>
+			var firebaseConfig = {
+				apiKey: "AIzaSyBQUVUovd6qFA-edeYY9gTSANjrI_M9EPA",
+				authDomain: "led-screen-5d0d8.firebaseapp.com",
+				projectId: "led-screen-5d0d8",
+				databaseURL:
+					"https://led-screen-5d0d8-default-rtdb.europe-west1.firebasedatabase.app/",
+				storageBucket: "led-screen-5d0d8.appspot.com",
+			};
+			firebase.initializeApp(firebaseConfig);
+			var database = firebase.database();
+		</script>
+		<script src="draw.js" type="text/javascript"></script>
+	</body>
 </html>

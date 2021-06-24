@@ -3,6 +3,9 @@ body {
 	color: white;
 	font-family: "Major Mono Display", monospace;
 }
+h3{
+	font-size: 1rem;
+}
 button {
 	width: 8rem;
 	color: rgb(179, 179, 179);
@@ -25,6 +28,12 @@ button:active {
 	transform: translate(2px, 2px);
 }
 
+canvas {
+	width: 100px;
+	height: 100px;
+	border: 1px solid rgba(165, 165, 165, 0.2);
+}
+
 #container {
 	margin: auto;
 	text-align: center;
@@ -39,12 +48,39 @@ button:active {
 	border: 1px solid black;
 }
 
+#saved{
+	display: none;
+	background-color: black;
+	border: 1px dashed white;
+	width: 30%;
+	height: 20%;
+	border-radius: 1rem;
+	box-shadow: 3px 3px 5px 6px rgba(59, 59, 59, 0.5),-3px -3px 5px 6px rgba(59, 59, 59, 0.5);
+	position: absolute;
+	top: 25%;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+#saved h2{
+	margin-top: 2rem;
+}
+
+#emojicontainer{	
+	width: 70%;
+	margin: 2rem auto;
+	padding-bottom: 2rem;
+	border: 1px dashed white;
+}
 #emojis {
 	margin: auto;
 	display: grid;
-    grid-auto-flow: column;
-    width: 100%;
+	align-items:flex-end;
+	justify-content:center;
+	grid-template-columns: repeat(8, 1fr);
+    width: 50%;
 	border: 1px solid black;
+	gap: 1rem;
 }
 
 #title {
@@ -54,19 +90,6 @@ button:active {
 	transform: rotate(270deg);
 }
 
-@media only screen and (max-width: 1100px) {
-	#title {
-		position: inherit;
-		left: auto;
-		top: auto;
-		transform: rotate(0deg);
-	}
-}
-canvas {
-	width: 100px;
-	height: 100px;
-	border: 1px solid rgba(165, 165, 165, 0.2);
-}
 
 .form-popup {
 	color: white;
@@ -117,4 +140,49 @@ canvas {
 .form-container .btn:hover,
 .open-button:hover {
 	opacity: 1;
+}
+.minigrid{	
+	margin: auto;
+	display: grid;
+	grid-template-columns: auto auto auto auto auto auto auto auto;
+	grid-template-rows: auto auto auto auto auto auto auto;
+	width: 80px;
+	height: 80px;
+	border: 1px solid white;
+}
+.white {
+	background-color: white;
+}
+@media only screen and (max-width: 1100px) {
+	#title {
+		position: inherit;
+		left: auto;
+		top: auto;
+		transform: rotate(0deg);
+	}
+	
+	#emojis{
+		grid-template-columns: repeat(5, 1fr) ;
+	}
+}
+
+@media only screen and (max-width: 850px) {
+	#grid {
+		width: 100%;
+		margin: auto;
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto auto auto;
+		grid-template-rows: auto auto auto auto auto auto auto;
+		width: 496px; 
+		height: 496px;
+		border: 1px solid black;
+	}
+	canvas {
+		width: 60px !important;
+		height: 60px !important;
+		border: 1px solid rgba(165, 165, 165, 0.2);
+	}
+	#emojis{
+		grid-template-columns: repeat(3, 1fr) !important;
+	}
 }

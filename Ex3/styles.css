@@ -85,7 +85,7 @@ canvas {
 
 #title {
 	position: fixed;
-	left: -10%;
+	left: -12%;
 	top: 50%;
 	transform: rotate(270deg);
 }
